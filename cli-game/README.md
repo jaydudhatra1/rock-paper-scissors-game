@@ -18,4 +18,6 @@ npm run build
 ###### Area of improvements
 ```
 1. Use Uglify in Production mode (npm run build)
+2. Validation of states
+3. localization
 ```

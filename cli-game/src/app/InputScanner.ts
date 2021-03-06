@@ -5,15 +5,26 @@ export class InputScanner {
 
     }
 
-    public scanInput(): void {
-        const readline = reader.createInterface({
-            input: process.stdin,
-            output: process.stdout
+    public scanInput(message: string): Promise<any> {
+      return new Promise((resolve, reject) => {
+        try {
+          const readline = this.getReader();
+
+          readline.question(message, (readerValue: any) => {
+            readline.close();
+            resolve(readerValue);
           });
 
-          readline.question('Who are you?', (name: any) => {
-            console.log(`Hey there ${name}!`);
-            readline.close();
-          });
+        } catch(exception) {
+          reject(exception);
+        }
+      });
+    }
+
+    public getReader(): any {
+      return reader.createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
     }
 }
