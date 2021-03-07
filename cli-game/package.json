@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "npm run tsc",
     "dev": "tsc-watch --onSuccess \"npm run bundle\"",
-    "build": "tsc --build & webpack --mode=production --config webpack.config.js& rm -rf dist/maps",
+    "build": "tsc --build & webpack --mode=production --config webpack.config.js & rm -rf dist/maps",
     "bundle": "webpack --mode=production --config webpack.config.js",
     "start": "node dist/game-cli.js"
   },

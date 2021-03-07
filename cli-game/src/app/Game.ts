@@ -1,6 +1,5 @@
 import { Config, State } from "./Config";
 import { GAME_MODE, GAME_STATE } from "./Enums";
-import { InputScanner } from "./InputScanner";
 import { Util } from "./Util";
 
 export class Game {
@@ -20,13 +19,6 @@ export class Game {
 
     public start(): void {
         if (!this.config.mode) {
-            this.util.fetchAndValidate(
-                this,
-                "Please select game mode. \n\tPress 1 for Player vs Computer \n\tPress 2 for Computer vs Computer\n",
-                this.validateGameMode.bind(this)
-            )
-                .then(this.start.bind(this))
-                .catch(this.start.bind(this));
         } else {
             switch(this.config.mode) {
                 case GAME_MODE.PvC:
@@ -72,14 +64,6 @@ export class Game {
         for (let state of this.config.states) {
             message += state + "\n\t";
         }
-
-        this.util.fetchAndValidate(
-            this,
-            message,
-            this.validatePlayerInput.bind(this)
-        )
-            .then(this.evaluateResult.bind(this))
-            .catch(this.startPlayerVsComputerGame.bind(this));
     }
 
     private startComputerVsComputerGame(): void {

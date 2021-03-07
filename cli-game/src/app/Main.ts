@@ -16,21 +16,10 @@ export class Main {
 
     public start(): void {
         if (!this.config.stateRules) {
-            this.getGameType();
         } else {
             this.game = new Game(this.config);
             this.game.start();
         }
-    }
-
-    private getGameType(): void {
-        this.util.fetchAndValidate(
-            this,
-            "Please select game type. \n\tPress 1 for rock paper scissors \n\tPress 2 for rock paper scissors lizard spock\n",
-            this.validateGameMode.bind(this)
-        )
-        .then(this.start.bind(this))
-        .catch(this.start.bind(this));
     }
 
     private validateGameMode(resolve: Function, reject: Function, input: string): void {
@@ -52,6 +41,6 @@ export class Main {
 }
 module.exports = new Main({
     mode: GAME_MODE.CvC,
-    stateRules: RPSLS,
+    stateRules: RPS,
     timeout: 5000
 } as Config);
