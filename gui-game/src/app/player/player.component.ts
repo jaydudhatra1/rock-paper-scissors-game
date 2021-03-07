@@ -81,18 +81,22 @@ export class PlayerComponent implements OnInit {
   }
 
   public isButtonDisabled(player: PLAYERS, buttonText: string): boolean {
-    if (!this.isStarted) {
+    if (this.isStarted && player === PLAYERS.PLAYER_2) {
       return true;
     }
 
-    if (this.output) {
+    if (this.output && !this.isStarted) {
       if (player === PLAYERS.PLAYER_1 && this.output.player1Response === buttonText) {
-        return true;
+        return false;
       }
 
       if (player === PLAYERS.PLAYER_2 && this.output.player2Response === buttonText) {
-        return true;
+        return false;
       }
+    }
+
+    if (!this.isStarted) {
+      return true;
     }
 
     return false;

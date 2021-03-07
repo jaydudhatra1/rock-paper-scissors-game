@@ -1,4 +1,4 @@
-<div class="wrapper h-100">
+<div class="wrapper">
     <div class="header">
         <button
             class="p-2 btn btn-dark mr-4"
@@ -36,67 +36,67 @@
     <div class="container pt-0">
         <div class="container player-1 flex-column border-container">
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('rock')"
                 [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'rock')">
-                Rock
+                <div class="rock"></div>
             </button>
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('paper')"
-                [disabled]="!isStarted">
-                Paper
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'paper')">
+                <div class="paper"></div>
             </button>
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('scissors')"
-                [disabled]="!isStarted">
-                Scissors
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'scissors')">
+                <div class="scissors"></div>
             </button>
             <button *ngIf="type == GAME_TYPE.RPSLS"
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('lizard')"
-                [disabled]="!isStarted">
-                lizard
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'lizard')">
+                <div class="lizard"></div>
             </button>
             <button *ngIf="type == GAME_TYPE.RPSLS"
-                class="d-flex p-2 btn btn-dark"
+                class="icon-btn"
                 (click)="chooseGesture('spock')"
-                [disabled]="!isStarted">
-                spock
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'spock')">
+                <div class="spock"></div>
             </button>
         </div>
 
         <div class="container player-2 flex-column border-container">
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('rock')"
-                [disabled]="!isStarted">
-                Rock
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'rock')">
+                <div class="rock"></div>
             </button>
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('paper')"
-                [disabled]="!isStarted">
-                Paper
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'paper')">
+                <div class="paper"></div>
             </button>
             <button
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('scissors')"
-                [disabled]="!isStarted">
-                Scissors
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'scissors')">
+                <div class="scissors"></div>
             </button>
             <button *ngIf="type == GAME_TYPE.RPSLS"
-                class="d-flex p-2 btn btn-dark mb-4"
+                class="icon-btn"
                 (click)="chooseGesture('lizard')"
-                [disabled]="!isStarted">
-                lizard
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'lizard')">
+                <div class="lizard"></div>
             </button>
             <button *ngIf="type == GAME_TYPE.RPSLS"
-                class="d-flex p-2 btn btn-dark"
+                class="icon-btn"
                 (click)="chooseGesture('spock')"
-                [disabled]="!isStarted">
-                spock
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'spock')">
+                <div class="spock"></div>
             </button>
         </div>
     </div>
