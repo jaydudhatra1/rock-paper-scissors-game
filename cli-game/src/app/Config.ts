@@ -5,6 +5,8 @@ export class Config {
     public timeout: number;
     public stateRules: State[];
     public states: string[];
+    public resolverFn?: Function;
+    public rejectorFn?: Function;
 
     constructor(stateRules: State[], timeout?: number) {
         this.stateRules = stateRules;
@@ -26,13 +28,13 @@ export const RPS: State[] = [
 
 // Rules for Rock-Paper-Scissors-Lizard-Spock
 export const RPSLS: State[] = [
-    {winningState: "rock", losingState: "Scissors"},
-    {winningState: "Scissors", losingState: "paper"},
+    {winningState: "rock", losingState: "scissors"},
+    {winningState: "scissors", losingState: "paper"},
     {winningState: "paper", losingState: "rock"},
     {winningState: "rock", losingState: "lizard"},
     {winningState: "lizard", losingState: "spock"},
-    {winningState: "spock", losingState: "Scissors"},
-    {winningState: "Scissors", losingState: "lizard"},
+    {winningState: "spock", losingState: "scissors"},
+    {winningState: "scissors", losingState: "lizard"},
     {winningState: "lizard", losingState: "paper"},
     {winningState: "paper", losingState: "spock"},
     {winningState: "spock", losingState: "rock"}

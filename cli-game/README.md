@@ -20,4 +20,6 @@ npm run build
 1. Use Uglify in Production mode (npm run build)
 2. Validation of states
 3. localization
+4. Colors in CLI e.g. red color for failed input validation
+5. Need to add retry logic when game ends
 ```

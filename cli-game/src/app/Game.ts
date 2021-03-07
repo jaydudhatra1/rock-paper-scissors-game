@@ -6,13 +6,9 @@ import { Util } from "./Util";
 export class Game {
     public gamePromise: Promise<any>;
     private config: Config;
-    private util: Util;
-    private resolveFn: Function;
+    private util: Util;;
 
     constructor(config?: Config) {
-        this.gamePromise = new Promise<any>((resolve, reject) => {
-            this.resolveFn = resolve;
-        });
         this.config = config;
         this.util = new Util();
         this.processStates();
@@ -54,6 +50,8 @@ export class Game {
     }
 
     private validatePlayerInput(resolve: Function, reject: Function, input: string): void {
+        input = input.toLowerCase();
+
         if (!this.config.states.includes(input)) {
             console.log("Please enter valid input.");
             reject();
@@ -92,6 +90,9 @@ export class Game {
     }
 
     private evaluateResult(input1: string, input2: string): void {
+        input1 = input1.toLowerCase();
+        input2 = input2.toLowerCase();
+
         const isWon = !!this.config.stateRules.filter((rule) => rule.winningState == input1 && rule.losingState == input2).length;
         if (isWon) {
             const name = this.config.mode == GAME_MODE.PvC ? "You": "Computer 1";
@@ -131,6 +132,6 @@ export class Game {
 
     private end(state: GAME_STATE): void {
         console.log("Game Ended!");
-        this.resolveFn(state);
+        this.config.resolverFn(state);
     }
 }
