@@ -7,19 +7,26 @@ export class Main {
     private config: Config;
     private game: Game;
     private util: Util;
+    private gamePromise: Promise<any>;
 
     constructor(config?: Config) {
         this.config = config || {} as Config;
         this.util = new Util();
         // this.start();
+        this.gamePromise = new Promise((resolve, reject) => {
+            this.config.resolverFn = resolve;
+            this.config.rejectorFn = reject;
+        });
     }
 
-    public start(): void {
+    public start(): Promise<any> {
         if (!this.config.stateRules) {
         } else {
             this.game = new Game(this.config);
             this.game.start();
         }
+
+        return this.gamePromise;
     }
 
     private validateGameMode(resolve: Function, reject: Function, input: string): void {
@@ -40,7 +47,7 @@ export class Main {
     }
 }
 module.exports = new Main({
-    mode: GAME_MODE.CvC,
+    mode: GAME_MODE.PvC,
     stateRules: RPS,
     timeout: 5000
 } as Config);
