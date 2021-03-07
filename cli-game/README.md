@@ -22,4 +22,5 @@ npm run build
 3. localization
 4. Colors in CLI e.g. red color for failed input validation
 5. Need to add retry logic when game ends
+6. Need to work on including type defination in Angular
 ```

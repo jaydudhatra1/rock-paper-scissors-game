@@ -1,20 +1,111 @@
-<div>
-    <!-- Game States -->
-    <div class="container flex-column">
+<div class="wrapper h-100">
+    <div class="header">
         <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('rock')">
-            Rock
+            class="p-2 btn btn-dark mr-4"
+            (click)="start()">
+            {{ getButtonText() }}
         </button>
+
         <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('paper')">
-            Paper
-        </button>
-        <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('scissors')">
-            Scissors
+            class="p-2 btn btn-dark"
+            (click)="exit()">
+            Exit
         </button>
     </div>
+    <!-- Timer -->
+    <div
+        class="container header">
+        <div
+            class="timer"
+            [class.disabled]="!isStarted"
+            [hidden]="mode == GAME_MODE.CvC">
+            {{ timer }}
+        </div>
+    </div>
+    <!-- TODO: Add Icons for rock paper scissor -->
+    <!-- TODO: go over state array and create these buttons -->
+    <!-- Game States -->
+    <div class="container flex-row player-name-container">
+        <div>
+            {{ mode == GAME_MODE.PvC ? 'You' : 'Computer 1' }}
+        </div>
+        <div>
+            {{ mode == GAME_MODE.PvC ? 'Computer' : 'Computer 2' }}
+        </div>
+    </div>
+    <div class="container pt-0">
+        <div class="container player-1 flex-column border-container">
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('rock')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'rock')">
+                Rock
+            </button>
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('paper')"
+                [disabled]="!isStarted">
+                Paper
+            </button>
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('scissors')"
+                [disabled]="!isStarted">
+                Scissors
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('lizard')"
+                [disabled]="!isStarted">
+                lizard
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="d-flex p-2 btn btn-dark"
+                (click)="chooseGesture('spock')"
+                [disabled]="!isStarted">
+                spock
+            </button>
+        </div>
+
+        <div class="container player-2 flex-column border-container">
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('rock')"
+                [disabled]="!isStarted">
+                Rock
+            </button>
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('paper')"
+                [disabled]="!isStarted">
+                Paper
+            </button>
+            <button
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('scissors')"
+                [disabled]="!isStarted">
+                Scissors
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="d-flex p-2 btn btn-dark mb-4"
+                (click)="chooseGesture('lizard')"
+                [disabled]="!isStarted">
+                lizard
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="d-flex p-2 btn btn-dark"
+                (click)="chooseGesture('spock')"
+                [disabled]="!isStarted">
+                spock
+            </button>
+        </div>
+    </div>
+
+        <div
+            *ngIf="output"
+            class="winning-state container"
+            [ngClass]="winningColor">
+            {{ message }}
+        </div>
+
 </div>
