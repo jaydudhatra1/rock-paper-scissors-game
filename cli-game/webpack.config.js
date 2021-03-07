@@ -12,5 +12,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     library: 'game',
     libraryTarget:'umd'
-  }
+  },
+  target: 'node'
 };

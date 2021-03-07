@@ -18,7 +18,7 @@ export class Main {
         this.gamePromise = new Promise((resolve, reject) => {
             this.config.resolverFn = resolve;
             this.config.rejectorFn = reject;
-        });
+        }).catch();
     }
 
     public start(): Promise<any> {
@@ -35,12 +35,16 @@ export class Main {
         this.observer.next(input);
     }
 }
+
+var app = new Main({
+    mode: GAME_MODE.PvC,
+    stateRules: RPS,
+    timeout: 4000
+} as Config);
+
+app.start().then((a) => { console.log(a)});
+
 module.exports.game = Main;
-// module.exports.game = new Main({
-//     mode: GAME_MODE.PvC,
-//     stateRules: RPS,
-//     timeout: 1000
-// } as Config);
 
 module.exports.rock_scissors_paper_states = RPS;
 module.exports.rocker_paper_scissors_lizard_spock_states = RPSLS;

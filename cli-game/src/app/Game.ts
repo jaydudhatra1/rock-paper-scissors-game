@@ -45,7 +45,7 @@ export class Game {
     }
 
     private startPlayerVsComputerGame(): void {
-        let message = "Please select input from\n";
+        let message = "Please select input from\n\t";
         for (let state of this.config.states) {
             message += state + "\n\t";
         }
