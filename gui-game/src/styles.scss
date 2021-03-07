@@ -1,0 +1,12 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.main {
+    background: linear-gradient(180deg, rgba(238,174,202,0.8354692218684349) 0%, rgba(148,187,233,0.8578781854538691) 100%);
+}

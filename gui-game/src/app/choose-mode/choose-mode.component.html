@@ -1,0 +1,20 @@
+<div class="wrapper h-100">
+    <!-- Header -->
+    <div class="header p-2">
+    Select Player Mode
+    </div>
+
+    <!-- Game Modes -->
+    <div class="container flex-column">
+        <button
+            class="d-flex p-2 btn btn-dark mb-4"
+            (click)="runGame(GAME_MODE.PvC)">
+            Player vs Computer
+        </button>
+        <button
+            class="d-flex p-2 btn btn-dark mb-4"
+            (click)="runGame(GAME_MODE.CvC)">
+            Computer vs Computer
+        </button>
+    </div>
+</div>
