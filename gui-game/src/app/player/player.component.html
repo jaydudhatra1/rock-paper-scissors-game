@@ -2,6 +2,7 @@
     <div class="header">
         <button
             class="p-2 btn btn-dark mr-4"
+            [disabled]="isStarted"
             (click)="start()">
             {{ getButtonText() }}
         </button>
