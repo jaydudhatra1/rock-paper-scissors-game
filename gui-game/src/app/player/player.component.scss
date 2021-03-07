@@ -1,0 +1,79 @@
+.wrapper {
+    .header {
+        button {
+            min-width: 110px;
+        }
+    }
+
+    .timer {
+        font-size: 40px;
+        font-weight: 700;
+        border-radius: 50%;
+        background: rgba(221, 145, 211, 0.74);
+        text-align: center;
+        height: 64px;
+        width: 64px;
+
+        &.disabled {
+            opacity: 0.4;
+        }
+    }
+
+    .container {
+        .player-1, .player-2 {
+            gap: 12px;
+        }
+        .player-1 {
+            margin-right: 10px;
+        }
+        .rock {
+            background-image: url("../../assets/images/rock.png");
+        }
+        .paper {
+            background-image: url("../../assets/images/paper.png");
+        }
+        .scissors {
+            background-image: url("../../assets/images/scissors.png");
+        }
+        .lizard {
+            background-image: url("../../assets/images/lizard.png");
+        }
+        .spock {
+            background-image: url("../../assets/images/spock.png");
+        }
+        .icon-btn {
+            padding: 0 !important;
+            margin: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #343a40;
+            box-shadow: 0 0 10px 1px #4d4d4d;
+
+            div {
+                height: 50px;
+                width: 50px;
+                background-size: 50px 50px;
+            }
+
+            &[disabled] {
+                opacity: 0.4;
+                box-shadow: none;
+            }
+
+            &:hover:not([disabled]) {
+                transform: scale(1.1);
+                transition: transform 0.5s;
+            }
+        }
+    }
+
+    .winning-state  {
+        padding: 10px;
+        border-radius: 50px;
+    }
+
+    .player-name-container div {
+        width: 100%;
+        text-align: center;
+    }
+}

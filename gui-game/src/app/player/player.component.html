@@ -1,20 +1,111 @@
-<div>
-    <!-- Game States -->
-    <div class="container flex-column">
+<div class="wrapper">
+    <div class="header">
         <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('rock')">
-            Rock
+            class="p-2 btn btn-dark mr-4"
+            (click)="start()">
+            {{ getButtonText() }}
         </button>
+
         <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('paper')">
-            Paper
-        </button>
-        <button
-            class="d-flex p-2 btn btn-dark mb-4"
-            (click)="chooseGesture('scissors')">
-            Scissors
+            class="p-2 btn btn-dark"
+            (click)="exit()">
+            Exit
         </button>
     </div>
+    <!-- Timer -->
+    <div
+        class="container header">
+        <div
+            class="timer"
+            [class.disabled]="!isStarted"
+            [hidden]="mode == GAME_MODE.CvC">
+            {{ timer }}
+        </div>
+    </div>
+    <!-- TODO: Add Icons for rock paper scissor -->
+    <!-- TODO: go over state array and create these buttons -->
+    <!-- Game States -->
+    <div class="container flex-row player-name-container">
+        <div>
+            {{ mode == GAME_MODE.PvC ? 'You' : 'Computer 1' }}
+        </div>
+        <div>
+            {{ mode == GAME_MODE.PvC ? 'Computer' : 'Computer 2' }}
+        </div>
+    </div>
+    <div class="container pt-0">
+        <div class="container player-1 flex-column border-container">
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('rock')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'rock')">
+                <div class="rock"></div>
+            </button>
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('paper')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'paper')">
+                <div class="paper"></div>
+            </button>
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('scissors')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'scissors')">
+                <div class="scissors"></div>
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="icon-btn"
+                (click)="chooseGesture('lizard')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'lizard')">
+                <div class="lizard"></div>
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="icon-btn"
+                (click)="chooseGesture('spock')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_1, 'spock')">
+                <div class="spock"></div>
+            </button>
+        </div>
+
+        <div class="container player-2 flex-column border-container">
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('rock')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'rock')">
+                <div class="rock"></div>
+            </button>
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('paper')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'paper')">
+                <div class="paper"></div>
+            </button>
+            <button
+                class="icon-btn"
+                (click)="chooseGesture('scissors')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'scissors')">
+                <div class="scissors"></div>
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="icon-btn"
+                (click)="chooseGesture('lizard')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'lizard')">
+                <div class="lizard"></div>
+            </button>
+            <button *ngIf="type == GAME_TYPE.RPSLS"
+                class="icon-btn"
+                (click)="chooseGesture('spock')"
+                [disabled]="isButtonDisabled(PLAYERS.PLAYER_2, 'spock')">
+                <div class="spock"></div>
+            </button>
+        </div>
+    </div>
+
+        <div
+            *ngIf="output"
+            class="winning-state container"
+            [ngClass]="winningColor">
+            {{ message }}
+        </div>
+
 </div>

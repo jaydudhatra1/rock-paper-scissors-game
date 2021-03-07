@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
+        "inlineSourceMap": true,
         "outDir": "./dist/obj/",
         "noImplicitAny": false,
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es6",
         "allowJs": false,
-        "sourceMap": true,
         "removeComments": true,
+        "declaration": true,
         "types": [ "node" ],
         "typeRoots": [
             "node_modules/@types"

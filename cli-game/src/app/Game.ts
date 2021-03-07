@@ -1,28 +1,21 @@
+import { Observable } from "rxjs";
 import { Config, State } from "./Config";
-import { GAME_MODE, GAME_STATE } from "./Enums";
-import { InputScanner } from "./InputScanner";
+import { EXCEPTIONS, GAME_MODE, GAME_STATE } from "./Enums";
+import { Output } from "./Output";
 import { Util } from "./Util";
 
 export class Game {
-    public gamePromise: Promise<any>;
     private config: Config;
-    private util: Util;;
+    private util: Util;
 
-    constructor(config?: Config) {
+    constructor(config: Config, observable: Observable<any>) {
         this.config = config;
-        this.util = new Util();
+        this.util = new Util(config, observable);
         this.processStates();
     }
 
     public start(): void {
         if (!this.config.mode) {
-            this.util.fetchAndValidate(
-                this,
-                "Please select game mode. \n\tPress 1 for Player vs Computer \n\tPress 2 for Computer vs Computer\n",
-                this.validateGameMode.bind(this)
-            )
-                .then(this.start.bind(this))
-                .catch(this.start.bind(this));
         } else {
             switch(this.config.mode) {
                 case GAME_MODE.PvC:
@@ -32,20 +25,6 @@ export class Game {
                     this.startComputerVsComputerGame();
                     break;
             }
-        }
-    }
-
-    private validateGameMode(resolve: Function, reject: Function, input: string): void {
-        const mode: GAME_MODE = parseInt(input);
-        switch(mode) {
-            case GAME_MODE.PvC:
-            case GAME_MODE.CvC:
-                this.config.mode = mode;
-                resolve(mode);
-                break;
-            default:
-                console.error("Please enter valid Game Mode.");
-                reject();
         }
     }
 
@@ -70,14 +49,15 @@ export class Game {
         for (let state of this.config.states) {
             message += state + "\n\t";
         }
-
         this.util.fetchAndValidate(
             this,
             message,
             this.validatePlayerInput.bind(this)
         )
             .then(this.evaluateResult.bind(this))
-            .catch(this.startPlayerVsComputerGame.bind(this));
+            .catch(() => {
+                this.config.rejectorFn(EXCEPTIONS.INVALID_INPUT);
+            });
     }
 
     private startComputerVsComputerGame(): void {
@@ -94,25 +74,32 @@ export class Game {
         input2 = input2.toLowerCase();
 
         const isWon = !!this.config.stateRules.filter((rule) => rule.winningState == input1 && rule.losingState == input2).length;
-        if (isWon) {
-            const name = this.config.mode == GAME_MODE.PvC ? "You": "Computer 1";
-            console.log(name + " Won!");
+        const output = new Output();
+        output.player1Response = input1;
+        output.player2Response = input2;
 
-            this.end(GAME_STATE.WIN);
-            return;
+        if (isWon) {
+            const message = this.config.mode == GAME_MODE.PvC ? "You Won!": "Computer 1 Won!";
+            console.log(message);
+            output.message = message;
+            output.state = GAME_STATE.WIN;
         }
 
         const isLost = !!this.config.stateRules.filter((rule) => rule.winningState == input2 && rule.losingState == input1).length;
         if (isLost) {
-            const name = this.config.mode == GAME_MODE.PvC ? "Computer 1": "Computer 2";
-            console.log(name + " Won!");
-
-            this.end(GAME_STATE.LOSE);
-            return;
+            const message = this.config.mode == GAME_MODE.PvC ? "You Lost!": "Computer 2 Won!";
+            console.log(message);
+            output.message = message;
+            output.state = GAME_STATE.LOSE;
         }
 
-        console.log("It's a Draw!");
-        this.end(GAME_STATE.TIE);
+        if (!isWon && !isLost) {
+            const message = "It's a Tie!"
+            console.log(message);
+            output.message = message;
+            output.state = GAME_STATE.TIE;
+        }
+        this.end(output);
     }
 
     private getRandomState(): string {
@@ -130,8 +117,8 @@ export class Game {
         console.log(this.config.states);
     }
 
-    private end(state: GAME_STATE): void {
+    private end(output: Output): void {
         console.log("Game Ended!");
-        this.config.resolverFn(state);
+        this.config.resolverFn(output);
     }
 }

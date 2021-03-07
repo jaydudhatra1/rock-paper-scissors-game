@@ -21,8 +21,8 @@ export class State {
 
 // Rules for Rock-Paper-Scissors
 export const RPS: State[] = [
-    {winningState: "rock", losingState: "scissor"},
-    {winningState: "scissor", losingState: "paper"},
+    {winningState: "rock", losingState: "scissors"},
+    {winningState: "scissors", losingState: "paper"},
     {winningState: "paper", losingState: "rock"}
 ];
 

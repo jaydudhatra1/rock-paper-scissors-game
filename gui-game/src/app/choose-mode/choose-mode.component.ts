@@ -16,7 +16,6 @@ export class ChooseModeComponent implements OnInit {
   }
 
   public runGame(mode: GAME_MODE): void {
-    // this.router.navigate(["/play", { mode }]);
-    this.router.navigateByUrl("play");
+    this.router.navigate(["/play"], { queryParams: { mode } });
   }
 }
