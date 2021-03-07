@@ -4,22 +4,39 @@ import { EXCEPTIONS, GAME_MODE, GAME_STATE, GAME_TYPE, PLAYERS, PLAYER_STATE } f
 // import { game, rock_scissors_paper_states, rocker_paper_scissors_lizard_spock_states } from "../../../../cli-game/dist/obj/Main";
 import { game, rock_scissors_paper_states, rocker_paper_scissors_lizard_spock_states } from "../../../../cli-game/dist/game-cli";
 import { Output } from "../constants/types";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: "app-player",
   templateUrl: "./player.component.html",
-  styleUrls: ["./player.component.scss"]
+  styleUrls: ["./player.component.scss"],
+  animations: [
+    trigger(
+      "enterAnimation", [
+        transition(":enter", [
+          style({transform: "translateX(100%)", opacity: 0}),
+          animate("500ms", style({transform: "translateX(0)", opacity: 1}))
+        ]),
+        transition(":leave", [
+          style({transform: "translateX(0)", opacity: 1}),
+          animate("500ms", style({transform: "translateX(100%)", opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class PlayerComponent implements OnInit {
   public type: GAME_TYPE = GAME_TYPE.RPSLS;
   public GAME_TYPE = GAME_TYPE;
   public GAME_MODE = GAME_MODE;
+  public PLAYER_STATE = PLAYER_STATE;
   public PLAYERS = PLAYERS;
   public isStarted = false;
   public playerState = PLAYER_STATE.START_GAME;
   public timer;
   public mode: GAME_MODE;
   public output: Output;
+  public error: string;
 
   private timeout = 5000;
   private gameInstance;
@@ -145,8 +162,8 @@ export class PlayerComponent implements OnInit {
   }
 
   private onException(exception: EXCEPTIONS): void{
-    alert(exception);
     this.playerState = PLAYER_STATE.RETRY;
+    this.error = exception;
   }
 
   private getGameRules(): object {

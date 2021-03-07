@@ -8,9 +8,16 @@
 
         <button
             class="p-2 btn btn-dark"
+            [disabled]="isStarted"
             (click)="exit()">
             Exit
         </button>
+    </div>
+    <div
+        class="winning-state container red"
+        *ngIf="playerState == PLAYER_STATE.RETRY && !isStarted"
+        [@enterAnimation]>
+        {{ error }}
     </div>
     <!-- Timer -->
     <div

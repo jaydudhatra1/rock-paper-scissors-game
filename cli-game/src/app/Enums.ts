@@ -15,6 +15,6 @@ export enum GAME_STATE {
 }
 
 export enum EXCEPTIONS {
-    INVALID_INPUT = "invalid input",
-    INPUT_NOT_PROVIDED = "input not provided",
+    INVALID_INPUT = "Invalid input!",
+    INPUT_NOT_PROVIDED = "Input not provided!",
 }
