@@ -49,15 +49,14 @@ export class Game {
         for (let state of this.config.states) {
             message += state + "\n\t";
         }
+        message += "\n";
         this.util.fetchAndValidate(
             this,
             message,
             this.validatePlayerInput.bind(this)
         )
             .then(this.evaluateResult.bind(this))
-            .catch(() => {
-                this.config.rejectorFn(EXCEPTIONS.INVALID_INPUT);
-            });
+            .catch(this.startPlayerVsComputerGame.bind(this));
     }
 
     private startComputerVsComputerGame(): void {

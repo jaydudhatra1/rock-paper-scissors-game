@@ -19,7 +19,7 @@ export class Util {
             const timeoutIndex = setTimeout(() => {
                 console.log(EXCEPTIONS.INPUT_NOT_PROVIDED);
                 this.scanner.readline.close();
-                reject();
+                this.config.rejectorFn(EXCEPTIONS.INPUT_NOT_PROVIDED);
             }, this.config.timeout);
 
             let scan: Promise<any> = this.scanner.scanInput(message);
