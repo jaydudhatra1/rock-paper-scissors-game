@@ -113,7 +113,6 @@ export class Game {
                 this.config.states.push(state.winningState);
             }
         }
-        console.log(this.config.states);
     }
 
     private end(output: Output): void {
